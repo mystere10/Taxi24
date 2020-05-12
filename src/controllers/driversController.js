@@ -21,3 +21,25 @@ exports.getDrivers = (req, res, next) => {
         })
     });
 }
+
+exports.getAvailableDrivers = (req, res, next) => {
+    driverModel.getAvailableDrivers().then((result) => {
+        if(result.rows.length === 0){
+            res.status(404).json({
+                status: '404',
+                message: 'No driver available, try again',
+            })
+        }else{
+            res.status(200).json({
+                status: '200',
+                message: 'All available drivers',
+                divers: result.rows
+            })
+        }
+    }).catch((error) => {
+        res.status(500).json({
+            message: 'An error occured',
+            error: error
+        })
+    })
+}

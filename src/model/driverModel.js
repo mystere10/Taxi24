@@ -16,6 +16,10 @@ class Driver{
     static getAllDrivers(){
         return db.query(sqlQueries.getAllDrivers);
     }
+
+    static getAvailableDrivers(){
+        return db.query(sqlQueries.getAvailableDrivers, [true]);
+    }
 }
 
 module.exports = Driver;
