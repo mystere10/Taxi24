@@ -4,16 +4,27 @@ const sqlQueries = require('./sqlqueries');
 
 require('dotenv').config()
 
-let newPool = new Pool({
+const connectionString = process.env.DATABASE_URL;
+
+let db_credentials = {
         host: process.env.DBHOST,
         user: process.env.DBUSERNAME,
         database: process.env.DBNAME,
         port: process.env.DBPORT,
         password: process.env.DBPASSWORD
-    });
+    };
 
+const pool = connectionString ? new Pool({connectionString}): new Pool(db_credentials);
 
-const connect = async () => await newPool.connect();
+const connect = () => new Promise(async (resolve, reject) => {
+    try {
+      pool.connect()
+        .then(() => console.log('connected'))
+        .catch((error) => console.log(error));
+    } catch(error) {
+      console.log(error);
+    }
+  });
 
 const defaultDatabase = async () => {    
 
@@ -68,25 +79,22 @@ const defaultDatabase = async () => {
         trip_distance VARCHAR(50) NOT NULL,
         trip_status VARCHAR(25) NOT NULL
     );`;
-
-    const client = await connect();
     
-    await client.query(driversTable);
-    await client.query(ridersTable);
-    await client.query(tripTable);
+    await pool.query(driversTable);
+    await pool.query(ridersTable);
+    await pool.query(tripTable);
     // Inserting data for drivers
-    await client.query(sqlQueries.driversDefaultData, drivers[0]);
-    await client.query(sqlQueries.driversDefaultData, drivers[1]);
-    await client.query(sqlQueries.driversDefaultData, drivers[2]);
-    await client.query(sqlQueries.driversDefaultData, drivers[3]);
+    await pool.query(sqlQueries.driversDefaultData, drivers[0]);
+    await pool.query(sqlQueries.driversDefaultData, drivers[1]);
+    await pool.query(sqlQueries.driversDefaultData, drivers[2]);
+    await pool.query(sqlQueries.driversDefaultData, drivers[3]);
 
     // Inserting data for riders
-    await client.query(sqlQueries.ridersDefaultData, riders[0]);
-    await client.query(sqlQueries.ridersDefaultData, riders[1]);
-    await client.query(sqlQueries.ridersDefaultData, riders[2]);
-    await client.query(sqlQueries.ridersDefaultData, riders[3]);
-    await client.query(sqlQueries.ridersDefaultData, riders[4]);
-    
+    await pool.query(sqlQueries.ridersDefaultData, riders[0]);
+    await pool.query(sqlQueries.ridersDefaultData, riders[1]);
+    await pool.query(sqlQueries.ridersDefaultData, riders[2]);
+    await pool.query(sqlQueries.ridersDefaultData, riders[3]);
+    await pool.query(sqlQueries.ridersDefaultData, riders[4]);
 };
 
 if (process.env.NODE_ENV !== 'test'){
@@ -94,14 +102,14 @@ if (process.env.NODE_ENV !== 'test'){
 }
 
 const dropTables = async () => {
-    const client = await connect();
     const dropAllTables = 'DROP TABLE IF EXISTS driver, rider, trip CASCADE';
-    await client.query(dropAllTables);
+    await pool.query(dropAllTables);
 }
+
 
 const db = {
     connect,
-    query: (text, params) => pool.query(text, params),
+    query: (text, params) => pool.query(text, params)
   }
 
 module.exports = db;
