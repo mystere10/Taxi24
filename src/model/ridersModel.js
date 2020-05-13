@@ -10,6 +10,10 @@ class Rider{
         this.phonenumber = phonenumber;
     }
 
+    getOneRider(){
+        return db.query(sqlQueries.getOneRider, [this.id]);
+    }
+
     static getAllRider(){
         return db.query(sqlQueries.getRiders)
     }
