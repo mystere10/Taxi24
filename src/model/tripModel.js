@@ -27,5 +27,13 @@ class Trip{
     completeTrip(){
         return db.query(sqlQueries.completeTrip, [this.trip_status, this.id]);
     }
+
+    activateTip(){
+        return db.query(sqlQueries.activateTrip, [this.trip_status, this.driver, this.id]);
+    }
+
+    getActiveTrips(){
+        return db.query(sqlQueries.activeTrips, [this.trip_status]);
+    }
 }
 module.exports = Trip;
