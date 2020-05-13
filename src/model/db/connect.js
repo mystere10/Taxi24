@@ -29,25 +29,29 @@ const connect = () => new Promise(async (resolve, reject) => {
 const defaultDatabase = async () => {    
 
     const drivers = [
-        [ "Kalisa", "kalisa@example.com", "0313232333", true, "Kicukiro", "10km", "0", "RAC 4435 BC"],
-    
-        [ "Desire", "desire@example.com", "0313232456", false, "Nyarugenge", "2km", "0", "RA 4333 BB"],
+        [ "Kalisa", "kalisa@example.com", "0313232333", true, "kicukiro", "10km", "0", "RAC 4435 BC"],
+
+        [ "Desire", "desire@example.com", "0313232456", false, "nyarugenge", "2km", "0", "RA 4333 BB"],
             
-        [ "Kamulisa", "kamulisa@example.com", "0313237674", false, "Musanze", "2km", "0", "RA 4133 BB"],
+        [ "Kamulisa", "kamulisa@example.com", "0313237674", false, "musanze", "2km", "0", "RA 4133 BB"],
             
-        [ "Manu", "manu@example.com", "0234232333", true, "Kibuye", "2km", "0", "RA 4334 BB"]
+        [ "Manu", "manu@example.com", "0234232333", true, "kibuye", "2km", "0", "RA 4334 BB"],
+
+        [ "Kamanzi", "kamanzi@example.com", "02342632333", true, "kicukiro", "2km", "0", "RA 4354 BB"],
+
+        [ "kabalisa", "kabalisa@example.com", "02347732333", true, "kicukiro", "2km", "0", "RA 4314 BB"]
     ];
 
     const riders = [
-        [ "doe", "doe@example.com", "Kicukiro", "0987232333" ],
+        [ "doe", "doe@example.com", "kicukiro", "0987232333" ],
 
-        [ "Mugabo", "mugabo@example.com", "Musanze", "0313230987" ],
+        [ "Mugabo", "mugabo@example.com", "musanze", "0313230987" ],
 
-        [ "Fab", "fab@example.com", "Nyarugenge", "0319876333" ],
+        [ "Fab", "fab@example.com", "nyarugenge", "0319876333" ],
 
-        [ "Johnson", "johson@example.com", "Kibuye", "0367852333"],
+        [ "Johnson", "johson@example.com", "kibuye", "0367852333"],
 
-        [ "John", "john@example.com", "Gasabo", "0378762333"]
+        [ "John", "john@example.com", "gasabo", "0378762333"]
     ];
 
     const driversTable = `CREATE TABLE IF NOT EXISTS driver(
@@ -88,6 +92,8 @@ const defaultDatabase = async () => {
     await pool.query(sqlQueries.driversDefaultData, drivers[1]);
     await pool.query(sqlQueries.driversDefaultData, drivers[2]);
     await pool.query(sqlQueries.driversDefaultData, drivers[3]);
+    await pool.query(sqlQueries.driversDefaultData, drivers[4]);
+    await pool.query(sqlQueries.driversDefaultData, drivers[5]);
 
     // Inserting data for riders
     await pool.query(sqlQueries.ridersDefaultData, riders[0]);

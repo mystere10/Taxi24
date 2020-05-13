@@ -20,6 +20,10 @@ class Driver{
     static getAvailableDrivers(){
         return db.query(sqlQueries.getAvailableDrivers, [true]);
     }
+
+    driversInDistance(){
+        return db.query(sqlQueries.driversInDistance, [this.available, this.location]);
+    }
 }
 
 module.exports = Driver;
