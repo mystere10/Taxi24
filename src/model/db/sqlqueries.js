@@ -4,10 +4,12 @@ const driversDefaultData = 'INSERT INTO driver(username, email, phonenumber, ava
 const ridersDefaultData = 'INSERT INTO rider(username, email, location, phonenumber)VALUES($1,$2,$3,$4) ON CONFLICT DO NOTHING';
 const getAllDrivers = 'SELECT * FROM driver';
 const getAvailableDrivers = 'SELECT * FROM driver WHERE available=$1';
+const driversInDistance = 'SELECT * FROM driver WHERE available=$1 AND location=$2';
 
 sqlQueries.driversDefaultData = driversDefaultData;
 sqlQueries.ridersDefaultData = ridersDefaultData;
 sqlQueries.getAllDrivers = getAllDrivers;
 sqlQueries.getAvailableDrivers = getAvailableDrivers;
+sqlQueries.driversInDistance = driversInDistance;
 
 module.exports = sqlQueries;
