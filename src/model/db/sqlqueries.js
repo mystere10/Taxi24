@@ -10,6 +10,8 @@ const createTrip = 'INSERT INTO trip(driver, rider, departure, destination, trip
 const getDriverByName = 'SELECT * FROM driver WHERE username=$1';
 const getRiderByName = 'SELECT * FROM rider WHERE username=$1';
 const completeTrip = 'UPDATE trip SET trip_status=$1 WHERE id=$2 RETURNING *';
+const activateTrip = 'UPDATE trip SET trip_status=$1 WHERE driver=$2 AND id=$3 RETURNING *';
+const activeTrips = 'SELECT * FROM trip WHERE trip_status=$1';
 
 sqlQueries.driversDefaultData = driversDefaultData;
 sqlQueries.ridersDefaultData = ridersDefaultData;
@@ -21,5 +23,7 @@ sqlQueries.createTrip = createTrip;
 sqlQueries.getDriverByName = getDriverByName;
 sqlQueries.getRiderByName = getRiderByName;
 sqlQueries.completeTrip = completeTrip;
+sqlQueries.activateTrip = activateTrip;
+sqlQueries.activeTrips = activeTrips;
 
 module.exports = sqlQueries;

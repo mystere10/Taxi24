@@ -56,3 +56,52 @@ exports.completeTrip = (req, res, next) =>{
         }
     }).catch((error) => res.send(error))
 }
+
+exports.activateTrip = (req, res, next) => {
+    const {tripId} = req.params;
+    const {driverId} = req.params;
+
+    const letters = /[A-Za-z!@#\$%\^\&*\)\(+=._-]/;
+
+    if(tripId === '' || tripId.match(letters)){
+        return res.status(403).json({
+            message: 'Invalid trip ID'
+        })
+    }
+
+    if(driverId === '' || driverId.match(letters)){
+        return res.status(403).json({
+            message: 'Invalid driver ID'
+        })
+    }
+
+    const activate = new TripModel(tripId, driverId, null, null, null, null, 'active');
+    activate.activateTip().then((result) => {
+        if(result.rows.length > 0){
+            return res.status(200).json({
+                message: 'Trip activated',
+                trip: result.rows
+            })
+        }else{
+            return res.status(200).json({
+                message: 'No trip found'
+            })
+        }
+    }).catch((error) => res.send(error))
+}
+
+exports.activeTrips = (req, res, next) => {
+    const active = new TripModel(null, null, null, null, null, null, 'active');
+    active.getActiveTrips().then((result) => {
+        if(result.rows.length > 0){
+            res.status(200).json({
+                message: 'Active trips',
+                trips: result.rows
+            })
+        }else{
+            res.status(200).json({
+                message: 'Not active trips',
+            })
+        }
+    }).catch((error) => res.send(error))
+}
