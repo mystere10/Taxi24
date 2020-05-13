@@ -46,6 +46,12 @@ exports.getAvailableDrivers = (req, res, next) => {
 
 exports.driversInDistance = (req, res, next) => {
     const location = req.body.location.toLowerCase();
+    const numbers = /[0-9]/;
+    if(location.match(numbers)){
+        return res.status(400).json({
+            message: 'Forbiden use valid location name'
+        })
+    }
     const locateDriver = new driverModel(null, null, null, true, location, null, null, null);
     locateDriver.driversInDistance().then((result) => {
         const drivers = [];
@@ -74,4 +80,32 @@ exports.driversInDistance = (req, res, next) => {
             error: error
         })
     });
+}
+
+exports.getOneDriver = (req, res, next) => {
+    const driverId = req.params.id;
+    const letters = /[A-Za-z]/;
+    if(driverId !== '' && driverId.match(letters)){
+        return res.status(400).json({
+                message: 'Kindly use a valid user id',
+            })
+    }
+    const driver = new driverModel(driverId);
+    driver.getOneDriver().then((result) => {
+        if(result.rows.length > 0){
+            return res.status(200).json({
+                message: 'Driver found',
+                driver: result.rows
+            })
+        }else{
+            return res.status(404).json({
+                message: 'No driver found',
+            })
+        }
+    }).catch((error) => {
+        res.status(500).json({
+            message: 'An error occured',
+            error: error
+        })
+    })
 }

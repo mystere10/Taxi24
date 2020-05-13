@@ -5,11 +5,13 @@ const ridersDefaultData = 'INSERT INTO rider(username, email, location, phonenum
 const getAllDrivers = 'SELECT * FROM driver';
 const getAvailableDrivers = 'SELECT * FROM driver WHERE available=$1';
 const driversInDistance = 'SELECT * FROM driver WHERE available=$1 AND location=$2';
+const getOneDriver = 'SELECT * FROM driver WHERE id=$1';
 
 sqlQueries.driversDefaultData = driversDefaultData;
 sqlQueries.ridersDefaultData = ridersDefaultData;
 sqlQueries.getAllDrivers = getAllDrivers;
 sqlQueries.getAvailableDrivers = getAvailableDrivers;
 sqlQueries.driversInDistance = driversInDistance;
+sqlQueries.getOneDriver = getOneDriver;
 
 module.exports = sqlQueries;
