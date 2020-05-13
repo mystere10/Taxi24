@@ -2,7 +2,8 @@ const db = require('./db/connect');
 const sqlQueries = require('./db/sqlqueries');
 
 class Driver{
-    constructor(username, email, phonenumber, available, location, distance, trip_request, plate_number) {
+    constructor(id, username, email, phonenumber, available, location, distance, trip_request, plate_number) {
+        this.id = id;
         this.username = username;
         this.email = email;
         this.phonenumber = phonenumber;
@@ -23,6 +24,10 @@ class Driver{
 
     driversInDistance(){
         return db.query(sqlQueries.driversInDistance, [this.available, this.location]);
+    }
+
+    getOneDriver(){
+        return db.query(sqlQueries.getOneDriver, [this.id])
     }
 }
 

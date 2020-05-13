@@ -5,6 +5,7 @@ const router = express.Router();
 
 router.post('/available/distance', driverController.driversInDistance);
 router.get('/available', driverController.getAvailableDrivers);
+router.get('/:id', driverController.getOneDriver);
 router.get('/', driverController.getDrivers);
 
 module.exports = router;
