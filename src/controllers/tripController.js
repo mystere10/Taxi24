@@ -1,4 +1,7 @@
+const fs = require('fs');
+const path = require('path');
 const TripModel = require('../model/tripModel');
+const p = require('../helpers/path')
 
 exports.newTrip = (req, res, next) => {
     const rider = req.body.rider;
@@ -25,4 +28,31 @@ exports.newTrip = (req, res, next) => {
             error: error
         });
     })
+}
+
+exports.completeTrip = (req, res, next) =>{
+    const id = req.params.id;
+    const newPath = path.join(p, 'invoices', 'invoices.json')
+
+    const characters = /[a-zA-Z!@#\$%\^\&*\)\(+=._-]/;
+    if(id.match(characters) || id === ''){
+        return res.status(403).json({
+            message: 'Unauthorized characters'
+        })
+    }
+
+    const complete = new TripModel(id, null, null, null, null, null, 'complete');
+    complete.completeTrip().then((result) => {
+        if(result.rows.length > 0){
+            fs.writeFileSync(newPath, JSON.stringify(result.rows));
+            return res.status(200).json({
+                message: 'Trip complete',
+                trip: result.rows
+            })
+        }else{
+            res.status(404).json({
+                message: 'Trip not found'
+            })
+        }
+    }).catch((error) => res.send(error))
 }
