@@ -46,8 +46,8 @@ exports.getAvailableDrivers = (req, res, next) => {
 
 exports.driversInDistance = (req, res, next) => {
     const location = req.body.location.toLowerCase();
-    const numbers = /[0-9]/;
-    if(location.match(numbers) && location !== ''){
+    const characters = /[0-9!@#\$%\^\&*\)\(+=._-]/;
+    if(location.match(characters) || location === ''){
         return res.status(400).json({
             message: 'Forbiden use valid location name'
         })
@@ -84,8 +84,8 @@ exports.driversInDistance = (req, res, next) => {
 
 exports.getOneDriver = (req, res, next) => {
     const driverId = req.params.id;
-    const letters = /[A-Za-z]/;
-    if(driverId !== '' && driverId.match(letters)){
+    const letters = /[A-Za-z!@#\$%\^\&*\)\(+=._-]/;
+    if(driverId === '' || driverId.match(letters)){
         return res.status(400).json({
                 message: 'Kindly use a valid user id',
             })
