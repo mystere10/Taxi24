@@ -47,12 +47,12 @@ exports.getAvailableDrivers = (req, res, next) => {
 exports.driversInDistance = (req, res, next) => {
     const location = req.body.location.toLowerCase();
     const numbers = /[0-9]/;
-    if(location.match(numbers)){
+    if(location.match(numbers) && location !== ''){
         return res.status(400).json({
             message: 'Forbiden use valid location name'
         })
     }
-    const locateDriver = new driverModel(null, null, null, true, location, null, null, null);
+    const locateDriver = new driverModel(null, null, null, null, true, location, null, null, null);
     locateDriver.driversInDistance().then((result) => {
         const drivers = [];
         if(result.rows.length > 0){
