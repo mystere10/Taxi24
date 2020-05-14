@@ -109,3 +109,34 @@ exports.getOneDriver = (req, res, next) => {
         })
     })
 }
+exports.getClosedDrivers = (req, res, next) => {
+    const driverId = req.params.id;
+
+    const regex = /[A-Za-z!@#\$%\^\&*\)\(+=._-]/;
+    if(driverId === '' || driverId.match(regex)){
+        return res.status(400).json({
+            message: 'Kindly use a valid user id',
+        })
+    }
+
+    const driver = new driverModel(driverId);
+    driver.getOneDriver().then((result) => {
+        const closestDrivers = [];
+        const distance = result.rows[0].distance.toString().split('km')[0]
+        driverModel.getAllDrivers().then((results) => {
+            results.rows.forEach((driv) => {
+                const closestDistance = driv.distance.toString().split('km')[0];
+                if(parseInt(closestDistance) <= parseInt(distance)){
+                    closestDrivers.push(driv);
+                }
+            })
+            if(result.rows.length > 0){
+                return res.status(200).json({
+                    driver: result.rows,
+                    nearest: closestDrivers
+                })
+            }
+        });
+        
+    }).catch((error) => res.send(error));
+}
