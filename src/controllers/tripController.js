@@ -14,11 +14,12 @@ exports.newTrip = (req, res, next) => {
     const driverId = req.driverId;
     const riderId = req.rider;
 
-    const newTrip = new TripModel(driverId, riderId, departure, destination, trip_distance, trip_status);
+    const newTrip = new TripModel(null, driverId, riderId, departure, destination, trip_distance, trip_status);
     newTrip.newTrip().then((result) => {
         if(result.rows.length > 0){
             res.status(201).json({
                 message: 'Trip created',
+                rest_trip: result.rows,
                 trip: Object.assign({}, result.rows, {driver: driver, rider: rider})
             })
         }
@@ -78,12 +79,12 @@ exports.activateTrip = (req, res, next) => {
     const activate = new TripModel(tripId, driverId, null, null, null, null, 'active');
     activate.activateTip().then((result) => {
         if(result.rows.length > 0){
-            return res.status(200).json({
+            res.status(200).json({
                 message: 'Trip activated',
                 trip: result.rows
             })
         }else{
-            return res.status(200).json({
+            res.status(404).json({
                 message: 'No trip found'
             })
         }

@@ -14,6 +14,7 @@ const activateTrip = 'UPDATE trip SET trip_status=$1 WHERE driver=$2 AND id=$3 R
 const activeTrips = 'SELECT * FROM trip WHERE trip_status=$1';
 const getRiders = 'SELECT * FROM rider';
 const getOneRider = 'SELECT * FROM rider WHERE id=$1';
+const truncateTables = 'TRUNCATE TABLE driver, rider, trip RESTART IDENTITY CASCADE';
 
 sqlQueries.driversDefaultData = driversDefaultData;
 sqlQueries.ridersDefaultData = ridersDefaultData;
@@ -29,5 +30,6 @@ sqlQueries.activateTrip = activateTrip;
 sqlQueries.activeTrips = activeTrips;
 sqlQueries.getRiders = getRiders;
 sqlQueries.getOneRider = getOneRider;
+sqlQueries.truncateTables = truncateTables;
 
 module.exports = sqlQueries;

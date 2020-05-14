@@ -14,3 +14,11 @@ it('should get the homepage', (done) => {
         done();
     });
 });
+
+it('should return an error if the route doesn\'t exist', (done) => {
+    chai.request(index).get('/unknown').end((err, res) => {
+        res.should.have.status(404);
+        res.body.should.have.property('message').eql('Endpoint not found');
+        done();
+    })
+})

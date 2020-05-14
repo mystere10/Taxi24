@@ -1,5 +1,4 @@
 const { Pool } = require('pg');
-const format = require('pg-format')
 const sqlQueries = require('./sqlqueries');
 
 require('dotenv').config()

@@ -11,7 +11,7 @@ exports.checkDriver = (req, res, next) => {
         })
     }
 
-    const checkDriver = new TripModel(driver);
+    const checkDriver = new TripModel(null, driver);
     checkDriver.getDriverByName().then((result) => {
         if(result.rows.length > 0){
             req.driverId = result.rows[0].id;
@@ -41,7 +41,7 @@ exports.checkRider = (req, res, next) => {
             })
         }
 
-    const checkRider = new TripModel(null, rider);
+    const checkRider = new TripModel(null, null, rider);
     checkRider.getRiderByName().then((result) => {
         if(result.rows.length > 0){
             req.rider = result.rows[0].id;
