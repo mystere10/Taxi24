@@ -3,6 +3,7 @@ const riderController = require('../controllers/ridersController')
 
 const router = express.Router();
 
-router.get('/', riderController.getRiders)
+router.get('/:id', riderController.getOneRider);
+router.get('/', riderController.getRiders);
 
 module.exports = router;

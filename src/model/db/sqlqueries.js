@@ -13,6 +13,7 @@ const completeTrip = 'UPDATE trip SET trip_status=$1 WHERE id=$2 RETURNING *';
 const activateTrip = 'UPDATE trip SET trip_status=$1 WHERE driver=$2 AND id=$3 RETURNING *';
 const activeTrips = 'SELECT * FROM trip WHERE trip_status=$1';
 const getRiders = 'SELECT * FROM rider';
+const getOneRider = 'SELECT * FROM rider WHERE id=$1';
 
 sqlQueries.driversDefaultData = driversDefaultData;
 sqlQueries.ridersDefaultData = ridersDefaultData;
@@ -27,5 +28,6 @@ sqlQueries.completeTrip = completeTrip;
 sqlQueries.activateTrip = activateTrip;
 sqlQueries.activeTrips = activeTrips;
 sqlQueries.getRiders = getRiders;
+sqlQueries.getOneRider = getOneRider;
 
 module.exports = sqlQueries;
