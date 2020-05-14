@@ -1,5 +1,4 @@
 [![Build Status](https://travis-ci.org/mystere10/Taxi24.svg?branch=master)](https://travis-ci.org/mystere10/Taxi24)
-[![Coverage Status](https://coveralls.io/repos/github/mystere10/Taxi24/badge.svg?branch=master)](https://coveralls.io/github/mystere10/Taxi24?branch=master)
 
 # Taxi 24 - We can help you manage your drivers fleet of your drivers and allocate to passengers.
 
@@ -12,89 +11,89 @@ To revolutionize public transportation in Rwanda by providing access to our APIs
 Here below are the stucture of the response for every endpoint
 
 ### Drivers
+
+`GET /api/v1/drivers`
+
 ```source-json
 {
     "drivers":[
         {
             "username": "Kalisa",
             "email": "kalisa@example.com",
-            "contact": "000 000 000 000",
+            "phonenumber": "000 000 000 000",
             "available": "true",
+            "location": "nyarugenge",
             "distance": "10km",
             "trip request": "0",
             "pate number": "RAC 443 BC"
         },
         {
-            "username": "Mulisa",
+            "username": "mulisa",
             "email": "mulisa@example.com",
-            "contact": "000 000 000 000",
-            "available": "false",
-            "distance": "2km"
+            "phonenumber": "000 000 000 000",
+            "available": "true",
+            "location": "nyarugenge",
+            "distance": "10km",
             "trip request": "0",
-            "pate number": "RA 4333 BB"
+            "pate number": "RAC 443 BC"
         }
     ]
 }
 ```
 ### Available Drivers
+`GET /api/v1/drivers/available/`
+
 ```source-json
 {
     "drivers":[
         {
             "username": "Kalisa",
             "email": "kalisa@example.com",
-            "contact": "000 000 000 000",
+            "phonenumber": "000 000 000 000",
             "available": "true",
-            "location": "Nyarutarama",
-            "distance": "2km",
-            "trip request": "2",
-            "pate number": "RAA 43 CC"
+            "location": "nyarugenge",
+            "distance": "10km",
+            "trip request": "0",
+            "pate number": "RAC 443 BC"
         },
-        {
-            "username": "Mulisa",
-            "email": "mulisa@example.com",
-            "contact": "000 000 000 000",
-            "available": "true",
-            "location": "Nyarutarama"
-            "distance": "2km",
-            "trip request": "3",
-            "pate number": "RAD 433 BB"
-        }
     ]
 }
 ```
 
 ### Available drivers within a 3km for a specific location
 
+`POST /api/v1/drivers/available/distance`
+
 ```source-json
 {
     "drivers":[
         {
             "username": "Kalisa",
             "email": "kalisa@example.com",
-            "contact": "000 000 000 000",
-            "Bio": "Lorem Ipsum is simply dummy text of the printing and typesetting industry"
+            "phonenumber": "000 000 000 000",
             "available": "true",
-            "location": "Nyarutarama",
-            "distance": "3km",
+            "location": "nyarugenge",
+            "distance": "10km",
             "trip request": "0",
-            "pate number": "RAD 4343 BB"
+            "pate number": "RAC 443 BC"
         },
         {
-            "username": "Mulisa",
-            "email": "mulisa@example.com",
-            "contact": "000 000 000 000",
+            "username": "John",
+            "email": "john@example.com",
+            "phonenumber": "000 000 000 000",
             "available": "true",
-            "location": "Nyarutarama",
-            "distance": "3km",
+            "location": "nyarugenge",
+            "distance": "10km",
             "trip request": "0",
-            "pate number": "RAC 4343 BB"
+            "pate number": "RAC 443 BC"
         }
     ]
 }
 ```
 
 ### Get a specific driver
+
+`GET /api/v1/drivers/:id`
 
 ```source-json
 {
@@ -114,71 +113,68 @@ Here below are the stucture of the response for every endpoint
 
 ### Create a trip
 
+`POST /api/v1/trip/new`
+
 ```source-json
 {
-    "trip":
-        {
-            "from": "Nyarutarama",
-            "destination": "Kimironko",
-            "driver": "kalisa",
-            "trip distance": "30km",
-            "trip status": "active"
-        }
+	"driver":"Kalisa",
+	"rider": "doe",
+	"from": "kicukiro",
+	"destination": "musanze",
+	"trip_distance": "90km"
 }
 ```
 
 ### Complete a trip
 
+`PATCH /api/v1/trip/1/complete`
+
 ```source-json
 {
     "trip":
         {
-            "from": "Nyarutarama",
-            "destination": "Nyarutarama",
             "driver": "kalisa",
-            "trip distance": "30km",
-            "trip status": "not active"
+            "rider": "doe",
+            "departure": "kicukiro",
+            "destination": "musanze",
+            "trip_distance": "90km",
+            "trip_status": "complete"
         }
 }
 ```
 
 ### List of all active trips
 
+`GET /api/v1/trip/active`
+
 ```source-json
 {
     "trips": 
         [
             {
-                "from": "Nyarutarama",
-                "destination": "Kimironko",
                 "driver": "kalisa",
-                "trip distance": "30km",
-                "trip status": "active"
-            },
-            {
-                "from": "Nyabugogo",
-                "destination": "Musanze",
-                "driver": "kalisa",
-                "trip distance": "30km",
-                "trip status": "active"
+                "rider": "doe",
+                "departure": "kicukiro",
+                "destination": "musanze",
+                "trip_distance": "90km",
+                "trip_status": "complete"
             }
         ]
 }
 ```
 
 ### Riders
+
+`GET /api/v1/riders`
+
 ```source-json
 {
     "riders":[
         {
             "username": "doe",
             "email": "doe@example.com",
-            "contact": "000 000 000 000",
-        },
-        {
-            "username": "Mugabo",
-            "email": "mugabo@example.com",
-            "contact": "000 000 000 000",
+            "location": "kicukiro"
+            "phonenumber": "000 000 000 000",
         }
     ]
 }
@@ -186,53 +182,124 @@ Here below are the stucture of the response for every endpoint
 
 ### Get a specific rider by their ID
 
+`GET /api/v1/riders/:id`
+
 ```source-json
 {
-    "driver":
+    "rider":
         {
             "username": "doe",
             "email": "doe@example.com",
-            "contact": "000 000 000 000",
+            "location": "kicukiro"
+            "phonenumber": "000 000 000 000",
+        }
+}
+```
+
+### Activate a trip
+
+`PATCH /api/v1/trip/1/5/activate`
+
+```source-json
+{
+    "trip":
+        {
+            "driver": 5,
+            "rider": 1,
+            "departure": "kicukiro",
+            "destination": "musanze",
+            "trip_distance": "90km",
+            "trip_status": "active"
         }
 }
 ```
 
 ### Get at least three closest drivers for a specific driver
 
+`GET /api/v1/drivers/1/closest`
+
 ```source-json
 {
-    "driver":
+    "driver": [
         {
+            "id": 1,
             "username": "Kalisa",
             "email": "kalisa@example.com",
-            "contact": "000 000 000 000",
-            "available": "true",
-            "location": "Nyarutarama",
-            "distance": "3km"
-            "pate number": "RAA 4543 B",
-            "trip request": "0"
-            "closest ones": [
-                {
-                    "username": "Janvier",
-                    "email": "kalisa@example.com",
-                    "contact": "000 000 000 000",
-                    "available": "true",
-                    "location": "Nyarutarama",
-                    "distance": "5km",
-                    "pate number": "RAA 4343 BB",
-                    "trip request": "0"
-                },
-                {
-                    "username": "Abdoul",
-                    "email": "kalisa@example.com",
-                    "contact": "000 000 000 000",
-                    "available": "true",
-                    "location": "Nyarutarama",
-                    "distance": "4km",
-                    "pate number": "RAA 4443 BB",
-                    "trip request": "0"
-                }
-            ]
+            "phonenumber": "0313232333",
+            "available": true,
+            "location": "kicukiro",
+            "distance": "10km",
+            "trip_requests": "0",
+            "plate_number": "RAC 4435 BC"
         }
+    ],
+    "nearest": [
+        {
+            "id": 1,
+            "username": "Kalisa",
+            "email": "kalisa@example.com",
+            "phonenumber": "0313232333",
+            "available": true,
+            "location": "kicukiro",
+            "distance": "10km",
+            "trip_requests": "0",
+            "plate_number": "RAC 4435 BC"
+        },
+        {
+            "id": 2,
+            "username": "Desire",
+            "email": "desire@example.com",
+            "phonenumber": "0313232456",
+            "available": false,
+            "location": "nyarugenge",
+            "distance": "2km",
+            "trip_requests": "0",
+            "plate_number": "RA 4333 BB"
+        },
+        {
+            "id": 3,
+            "username": "Kamulisa",
+            "email": "kamulisa@example.com",
+            "phonenumber": "0313237674",
+            "available": false,
+            "location": "musanze",
+            "distance": "2km",
+            "trip_requests": "0",
+            "plate_number": "RA 4133 BB"
+        },
+        {
+            "id": 4,
+            "username": "Manu",
+            "email": "manu@example.com",
+            "phonenumber": "0234232333",
+            "available": true,
+            "location": "kibuye",
+            "distance": "2km",
+            "trip_requests": "0",
+            "plate_number": "RA 4334 BB"
+        },
+        {
+            "id": 5,
+            "username": "Kamanzi",
+            "email": "kamanzi@example.com",
+            "phonenumber": "02342632333",
+            "available": true,
+            "location": "kicukiro",
+            "distance": "2km",
+            "trip_requests": "0",
+            "plate_number": "RA 4354 BB"
+        },
+        {
+            "id": 6,
+            "username": "kabalisa",
+            "email": "kabalisa@example.com",
+            "phonenumber": "02347732333",
+            "available": true,
+            "location": "kicukiro",
+            "distance": "2km",
+            "trip_requests": "0",
+            "plate_number": "RA 4314 BB"
+        }
+    ]
 }
 ```
