@@ -5,6 +5,8 @@ const db = require('../src/model/db/connect');
 const sqlQueries = require('../src/model/db/sqlqueries')
 const mockData = require('./mockData');
 
+require('dotenv').config()
+
 const should = chai.should();
 
 chai.use(chaiHttp);

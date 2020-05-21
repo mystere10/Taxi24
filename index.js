@@ -5,6 +5,8 @@ const driversRoute = require('./src/routes/drivers');
 const tripRoute = require('./src/routes/trip')
 const ridersRoute = require('./src/routes/riders');
 
+require('dotenv').config()
+
 const app = express();
 
 app.use(bodyParser.json());

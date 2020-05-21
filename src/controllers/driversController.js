@@ -68,7 +68,7 @@ exports.driversInDistance = (req, res, next) => {
                     drivers: drivers
                 })
             )
-        }else if(parseInt(distance) > 3){
+        }else{
             res.status(404).json({
                message: 'There is no driver within 3km in the specified location'
            })

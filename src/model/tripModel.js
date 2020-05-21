@@ -35,5 +35,9 @@ class Trip{
     getActiveTrips(){
         return db.query(sqlQueries.activeTrips, [this.trip_status]);
     }
+
+    getTrip(){
+        return db.query(sqlQueries.getTrip, [this.id])
+    }
 }
 module.exports = Trip;

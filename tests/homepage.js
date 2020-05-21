@@ -2,6 +2,8 @@ const chai = require('chai');
 const chaiHttp = require('chai-http');
 const index = require('../index');
 
+require('dotenv').config()
+
 const should = chai.should();
 
 chai.use(chaiHttp);

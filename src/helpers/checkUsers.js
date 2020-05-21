@@ -1,7 +1,7 @@
 const TripModel = require('../model/tripModel');
 exports.checkDriver = (req, res, next) => {
 
-    const driver = req.body.driver;
+    const driver = req.body.driver.toLowerCase();
 
     const letters = /[!@#\$%\^\&*\)\(+=._-]/;
     
@@ -31,7 +31,7 @@ exports.checkDriver = (req, res, next) => {
 }
 
 exports.checkRider = (req, res, next) => {
-    const rider = req.body.rider;
+    const rider = req.body.rider.toLowerCase();
 
     const letters = /[!@#\$%\^\&*\)\(+=._-]/;
     

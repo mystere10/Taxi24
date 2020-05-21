@@ -9,12 +9,16 @@ const should = chai.should();
 
 chai.use(chaiHttp);
 
+require('dotenv').config()
+
 beforeEach('Create drivers', (done) => {
-    db.query(sqlQueries.driversDefaultData, mockData.drivers[0]);
-    db.query(sqlQueries.driversDefaultData, mockData.drivers[1]);
-    db.query(sqlQueries.ridersDefaultData, mockData.riders[0]);
-    db.query(sqlQueries.ridersDefaultData, mockData.riders[1]);
-    done();
+    if(process.env.NODE_ENV === 'test'){
+        db.query(sqlQueries.driversDefaultData, mockData.drivers[0]);
+        db.query(sqlQueries.driversDefaultData, mockData.drivers[1]);
+        db.query(sqlQueries.ridersDefaultData, mockData.riders[0]);
+        db.query(sqlQueries.ridersDefaultData, mockData.riders[1]);
+        done();
+    }
 })
 
 describe('Tests for drivers', () => {

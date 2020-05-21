@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const TripModel = require('../model/tripModel');
 const p = require('../helpers/path')
+const calCulateCharges = require('../helpers/calculateCharges')
 
 exports.newTrip = (req, res, next) => {
     const rider = req.body.rider;
@@ -43,12 +44,15 @@ exports.completeTrip = (req, res, next) =>{
     }
 
     const complete = new TripModel(id, null, null, null, null, null, 'complete');
+
+    const cost = calCulateCharges(id)
     complete.completeTrip().then((result) => {
         if(result.rows.length > 0){
             fs.writeFileSync(newPath, JSON.stringify(result.rows));
             return res.status(200).json({
                 message: 'Trip complete',
-                trip: result.rows
+                trip: result.rows,
+                trip_cost: cost
             })
         }else{
             res.status(404).json({

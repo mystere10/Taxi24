@@ -4,7 +4,7 @@
   "description": "Project to help companies manage their fleet of drivers and allocate drivers to passenders",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js",
+    "start": "cross-env NODE_ENV=development nodemon index.js",
     "test": "cross-env NODE_ENV=test nyc --reporter=text --reporter=lcov mocha tests/*.js --exit || true",
     "migrate": "cross-env node src/model/db/connect.js",
     "coveralls": "nyc report --reporter=text-lcov | coveralls"
